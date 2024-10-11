@@ -1,0 +1,154 @@
+11:06:21 [ultranest] [DEBUG] ReactiveNestedSampler: dims=5+0, resume=True, log_dir=scripts/calibration/fit_updated_intake/PCB 81/run1, backend=hdf5, vectorized=False, nbootstraps=30, ndraw=128..65536
+11:06:31 [ultranest] [DEBUG] Testing resume consistency: [-4.71759684e+00 -4.70888524e+00  0.00000000e+00  7.10707707e-01
+  7.61602360e-02  5.36763031e-01  5.90176581e-01  6.36710869e-01
+  7.13600630e+02  7.70840758e+01  5.37226268e+02  5.90586405e+02
+  6.36710869e-01]: u=[0.71070771 0.07616024 0.53676303 0.59017658 0.63671087] -> p=[7.13600630e+02 7.70840758e+01 5.37226268e+02 5.90586405e+02
+ 6.36710869e-01] -> L=-4.708885240123014 
+11:06:38 [ultranest] [INFO] Resuming from 4663 stored points
+11:06:38 [ultranest] [DEBUG] run_iter dlogz=0.5, dKL=0.5, frac_remain=0.01, Lepsilon=0.0010, min_ess=400
+11:06:38 [ultranest] [DEBUG] max_iters=-1, max_ncalls=-1, max_num_improvement_loops=-1, min_num_live_points=400, cluster_num_live_points=40
+11:06:38 [ultranest] [DEBUG] minimal_widths_sequence: [(-inf, 400.0), (inf, 400.0)]
+11:06:38 [ultranest] [DEBUG] iteration=0, ncalls=25975, regioncalls=0, ndraw=40, logz=-inf, remainder_fraction=100.0000%, Lmin=-710.50, Lmax=-5.07
+11:06:38 [ultranest] [DEBUG] iteration=40, ncalls=25975, regioncalls=0, ndraw=40, logz=-172.33, remainder_fraction=100.0000%, Lmin=-162.42, Lmax=-5.07
+11:06:38 [ultranest] [DEBUG] iteration=80, ncalls=25975, regioncalls=0, ndraw=40, logz=-122.20, remainder_fraction=100.0000%, Lmin=-116.21, Lmax=-5.07
+11:06:38 [ultranest] [DEBUG] iteration=120, ncalls=25975, regioncalls=0, ndraw=40, logz=-103.37, remainder_fraction=100.0000%, Lmin=-98.51, Lmax=-5.07
+11:06:38 [ultranest] [DEBUG] iteration=160, ncalls=25975, regioncalls=0, ndraw=40, logz=-85.72, remainder_fraction=100.0000%, Lmin=-79.62, Lmax=-4.81
+11:06:38 [ultranest] [DEBUG] iteration=180, ncalls=25975, regioncalls=0, ndraw=40, logz=-76.51, remainder_fraction=100.0000%, Lmin=-71.01, Lmax=-4.81
+11:06:38 [ultranest] [DEBUG] iteration=200, ncalls=25975, regioncalls=0, ndraw=40, logz=-71.79, remainder_fraction=100.0000%, Lmin=-67.08, Lmax=-4.81
+11:06:38 [ultranest] [DEBUG] iteration=240, ncalls=25975, regioncalls=0, ndraw=40, logz=-63.31, remainder_fraction=100.0000%, Lmin=-58.11, Lmax=-4.81
+11:06:38 [ultranest] [DEBUG] iteration=280, ncalls=25975, regioncalls=0, ndraw=40, logz=-55.80, remainder_fraction=100.0000%, Lmin=-51.29, Lmax=-4.81
+11:06:38 [ultranest] [DEBUG] iteration=320, ncalls=25975, regioncalls=0, ndraw=40, logz=-51.59, remainder_fraction=100.0000%, Lmin=-46.95, Lmax=-4.81
+11:06:38 [ultranest] [DEBUG] iteration=360, ncalls=25975, regioncalls=0, ndraw=40, logz=-46.45, remainder_fraction=100.0000%, Lmin=-41.85, Lmax=-4.81
+11:06:38 [ultranest] [DEBUG] iteration=400, ncalls=25975, regioncalls=0, ndraw=40, logz=-43.45, remainder_fraction=100.0000%, Lmin=-39.40, Lmax=-4.81
+11:06:38 [ultranest] [DEBUG] iteration=440, ncalls=25975, regioncalls=0, ndraw=40, logz=-41.17, remainder_fraction=100.0000%, Lmin=-36.91, Lmax=-4.81
+11:06:39 [ultranest] [DEBUG] iteration=480, ncalls=25975, regioncalls=0, ndraw=40, logz=-39.12, remainder_fraction=100.0000%, Lmin=-34.90, Lmax=-4.81
+11:06:39 [ultranest] [DEBUG] iteration=520, ncalls=25975, regioncalls=0, ndraw=40, logz=-37.15, remainder_fraction=100.0000%, Lmin=-32.84, Lmax=-4.81
+11:06:39 [ultranest] [DEBUG] iteration=540, ncalls=25975, regioncalls=0, ndraw=40, logz=-36.23, remainder_fraction=100.0000%, Lmin=-32.16, Lmax=-4.81
+11:06:39 [ultranest] [DEBUG] iteration=560, ncalls=25975, regioncalls=0, ndraw=40, logz=-35.47, remainder_fraction=100.0000%, Lmin=-31.28, Lmax=-4.81
+11:06:39 [ultranest] [DEBUG] iteration=600, ncalls=25975, regioncalls=0, ndraw=40, logz=-33.90, remainder_fraction=100.0000%, Lmin=-29.59, Lmax=-4.81
+11:06:39 [ultranest] [DEBUG] iteration=630, ncalls=25975, regioncalls=0, ndraw=40, logz=-32.72, remainder_fraction=100.0000%, Lmin=-28.34, Lmax=-4.81
+11:06:39 [ultranest] [DEBUG] iteration=640, ncalls=25975, regioncalls=0, ndraw=40, logz=-32.30, remainder_fraction=100.0000%, Lmin=-27.81, Lmax=-4.81
+11:06:39 [ultranest] [DEBUG] iteration=680, ncalls=25975, regioncalls=0, ndraw=40, logz=-30.85, remainder_fraction=100.0000%, Lmin=-26.65, Lmax=-4.81
+11:06:39 [ultranest] [DEBUG] iteration=720, ncalls=25975, regioncalls=0, ndraw=40, logz=-29.71, remainder_fraction=100.0000%, Lmin=-25.59, Lmax=-4.81
+11:06:39 [ultranest] [DEBUG] iteration=760, ncalls=25975, regioncalls=0, ndraw=40, logz=-28.52, remainder_fraction=100.0000%, Lmin=-24.06, Lmax=-4.81
+11:06:39 [ultranest] [DEBUG] iteration=800, ncalls=25975, regioncalls=0, ndraw=40, logz=-27.26, remainder_fraction=100.0000%, Lmin=-22.74, Lmax=-4.81
+11:06:39 [ultranest] [DEBUG] iteration=810, ncalls=25975, regioncalls=0, ndraw=40, logz=-26.97, remainder_fraction=100.0000%, Lmin=-22.54, Lmax=-4.81
+11:06:39 [ultranest] [DEBUG] iteration=840, ncalls=25975, regioncalls=0, ndraw=40, logz=-26.11, remainder_fraction=100.0000%, Lmin=-21.60, Lmax=-4.81
+11:06:39 [ultranest] [DEBUG] iteration=880, ncalls=25975, regioncalls=0, ndraw=40, logz=-24.93, remainder_fraction=99.9999%, Lmin=-20.30, Lmax=-4.81
+11:06:39 [ultranest] [DEBUG] iteration=920, ncalls=25975, regioncalls=0, ndraw=40, logz=-23.80, remainder_fraction=99.9998%, Lmin=-19.13, Lmax=-4.81
+11:06:39 [ultranest] [DEBUG] iteration=960, ncalls=25975, regioncalls=0, ndraw=40, logz=-22.89, remainder_fraction=99.9994%, Lmin=-18.31, Lmax=-4.81
+11:06:39 [ultranest] [DEBUG] iteration=1000, ncalls=25975, regioncalls=0, ndraw=40, logz=-22.08, remainder_fraction=99.9988%, Lmin=-17.58, Lmax=-4.81
+11:06:39 [ultranest] [DEBUG] iteration=1040, ncalls=25975, regioncalls=0, ndraw=40, logz=-21.36, remainder_fraction=99.9975%, Lmin=-16.81, Lmax=-4.81
+11:06:39 [ultranest] [DEBUG] iteration=1080, ncalls=25975, regioncalls=0, ndraw=40, logz=-20.65, remainder_fraction=99.9951%, Lmin=-15.91, Lmax=-4.81
+11:06:39 [ultranest] [DEBUG] iteration=1120, ncalls=25975, regioncalls=0, ndraw=40, logz=-19.91, remainder_fraction=99.9890%, Lmin=-15.17, Lmax=-4.81
+11:06:39 [ultranest] [DEBUG] iteration=1160, ncalls=25975, regioncalls=0, ndraw=40, logz=-19.23, remainder_fraction=99.9776%, Lmin=-14.39, Lmax=-4.81
+11:06:39 [ultranest] [DEBUG] iteration=1170, ncalls=25975, regioncalls=0, ndraw=40, logz=-19.05, remainder_fraction=99.9731%, Lmin=-14.12, Lmax=-4.81
+11:06:39 [ultranest] [DEBUG] iteration=1200, ncalls=25975, regioncalls=0, ndraw=40, logz=-18.50, remainder_fraction=99.9519%, Lmin=-13.55, Lmax=-4.81
+11:06:39 [ultranest] [DEBUG] iteration=1240, ncalls=25975, regioncalls=0, ndraw=40, logz=-17.82, remainder_fraction=99.9134%, Lmin=-12.85, Lmax=-4.81
+11:06:39 [ultranest] [DEBUG] iteration=1260, ncalls=25975, regioncalls=0, ndraw=40, logz=-17.51, remainder_fraction=99.8875%, Lmin=-12.57, Lmax=-4.81
+11:06:39 [ultranest] [DEBUG] iteration=1280, ncalls=25975, regioncalls=0, ndraw=40, logz=-17.23, remainder_fraction=99.8475%, Lmin=-12.31, Lmax=-4.81
+11:06:39 [ultranest] [DEBUG] iteration=1320, ncalls=25975, regioncalls=0, ndraw=40, logz=-16.71, remainder_fraction=99.7465%, Lmin=-11.81, Lmax=-4.81
+11:06:39 [ultranest] [DEBUG] iteration=1360, ncalls=25975, regioncalls=0, ndraw=40, logz=-16.22, remainder_fraction=99.5928%, Lmin=-11.24, Lmax=-4.81
+11:06:39 [ultranest] [DEBUG] iteration=1400, ncalls=25975, regioncalls=0, ndraw=40, logz=-15.78, remainder_fraction=99.3745%, Lmin=-10.91, Lmax=-4.81
+11:06:39 [ultranest] [DEBUG] iteration=1440, ncalls=25975, regioncalls=0, ndraw=40, logz=-15.40, remainder_fraction=99.0734%, Lmin=-10.48, Lmax=-4.81
+11:06:39 [ultranest] [DEBUG] iteration=1480, ncalls=25975, regioncalls=0, ndraw=40, logz=-15.05, remainder_fraction=98.6956%, Lmin=-10.17, Lmax=-4.81
+11:06:39 [ultranest] [DEBUG] iteration=1520, ncalls=25975, regioncalls=0, ndraw=40, logz=-14.72, remainder_fraction=98.2095%, Lmin=-9.75, Lmax=-4.81
+11:06:39 [ultranest] [DEBUG] iteration=1530, ncalls=25975, regioncalls=0, ndraw=40, logz=-14.64, remainder_fraction=98.0278%, Lmin=-9.62, Lmax=-4.81
+11:06:39 [ultranest] [DEBUG] iteration=1560, ncalls=25975, regioncalls=0, ndraw=40, logz=-14.41, remainder_fraction=97.4707%, Lmin=-9.43, Lmax=-4.81
+11:06:39 [ultranest] [DEBUG] iteration=1600, ncalls=25975, regioncalls=0, ndraw=40, logz=-14.14, remainder_fraction=96.7902%, Lmin=-9.19, Lmax=-4.81
+11:06:39 [ultranest] [DEBUG] iteration=1640, ncalls=25975, regioncalls=0, ndraw=40, logz=-13.87, remainder_fraction=95.7271%, Lmin=-8.81, Lmax=-4.81
+11:06:39 [ultranest] [DEBUG] iteration=1680, ncalls=25975, regioncalls=0, ndraw=40, logz=-13.62, remainder_fraction=94.5443%, Lmin=-8.55, Lmax=-4.81
+11:06:39 [ultranest] [DEBUG] iteration=1710, ncalls=25975, regioncalls=0, ndraw=40, logz=-13.45, remainder_fraction=93.5153%, Lmin=-8.41, Lmax=-4.81
+11:06:39 [ultranest] [DEBUG] iteration=1720, ncalls=25975, regioncalls=0, ndraw=40, logz=-13.40, remainder_fraction=93.1071%, Lmin=-8.38, Lmax=-4.81
+11:06:40 [ultranest] [DEBUG] iteration=1760, ncalls=25975, regioncalls=0, ndraw=40, logz=-13.21, remainder_fraction=91.6994%, Lmin=-8.19, Lmax=-4.81
+11:06:40 [ultranest] [DEBUG] iteration=1800, ncalls=25975, regioncalls=0, ndraw=40, logz=-13.03, remainder_fraction=90.1704%, Lmin=-7.97, Lmax=-4.70
+11:06:40 [ultranest] [DEBUG] iteration=1840, ncalls=25975, regioncalls=0, ndraw=40, logz=-12.86, remainder_fraction=88.2274%, Lmin=-7.72, Lmax=-4.70
+11:06:40 [ultranest] [DEBUG] iteration=1880, ncalls=25975, regioncalls=0, ndraw=40, logz=-12.69, remainder_fraction=86.3088%, Lmin=-7.52, Lmax=-4.70
+11:06:40 [ultranest] [DEBUG] iteration=1920, ncalls=25975, regioncalls=0, ndraw=40, logz=-12.53, remainder_fraction=83.9764%, Lmin=-7.32, Lmax=-4.70
+11:06:40 [ultranest] [DEBUG] iteration=1960, ncalls=25975, regioncalls=0, ndraw=40, logz=-12.39, remainder_fraction=81.8407%, Lmin=-7.18, Lmax=-4.70
+11:06:40 [ultranest] [DEBUG] iteration=1980, ncalls=25975, regioncalls=0, ndraw=40, logz=-12.32, remainder_fraction=80.6411%, Lmin=-7.11, Lmax=-4.70
+11:06:40 [ultranest] [DEBUG] iteration=2000, ncalls=25975, regioncalls=0, ndraw=40, logz=-12.26, remainder_fraction=79.3745%, Lmin=-7.03, Lmax=-4.70
+11:06:40 [ultranest] [DEBUG] iteration=2040, ncalls=25975, regioncalls=0, ndraw=40, logz=-12.14, remainder_fraction=76.5879%, Lmin=-6.90, Lmax=-4.70
+11:06:40 [ultranest] [DEBUG] iteration=2070, ncalls=25975, regioncalls=0, ndraw=40, logz=-12.05, remainder_fraction=74.6631%, Lmin=-6.79, Lmax=-4.70
+11:06:40 [ultranest] [DEBUG] iteration=2080, ncalls=25975, regioncalls=0, ndraw=40, logz=-12.03, remainder_fraction=73.9363%, Lmin=-6.78, Lmax=-4.70
+11:06:40 [ultranest] [DEBUG] iteration=2120, ncalls=25975, regioncalls=0, ndraw=40, logz=-11.93, remainder_fraction=70.9629%, Lmin=-6.64, Lmax=-4.70
+11:06:40 [ultranest] [DEBUG] iteration=2160, ncalls=25975, regioncalls=0, ndraw=40, logz=-11.83, remainder_fraction=67.6772%, Lmin=-6.53, Lmax=-4.70
+11:06:40 [ultranest] [DEBUG] iteration=2200, ncalls=25975, regioncalls=0, ndraw=40, logz=-11.75, remainder_fraction=64.6708%, Lmin=-6.43, Lmax=-4.70
+11:06:40 [ultranest] [DEBUG] iteration=2240, ncalls=25975, regioncalls=0, ndraw=40, logz=-11.67, remainder_fraction=61.7432%, Lmin=-6.33, Lmax=-4.70
+11:06:40 [ultranest] [DEBUG] iteration=2250, ncalls=25975, regioncalls=0, ndraw=40, logz=-11.65, remainder_fraction=60.9253%, Lmin=-6.31, Lmax=-4.70
+11:06:40 [ultranest] [DEBUG] iteration=2280, ncalls=25975, regioncalls=0, ndraw=40, logz=-11.59, remainder_fraction=58.4247%, Lmin=-6.24, Lmax=-4.70
+11:06:40 [ultranest] [DEBUG] iteration=2320, ncalls=25975, regioncalls=0, ndraw=40, logz=-11.52, remainder_fraction=55.5924%, Lmin=-6.13, Lmax=-4.69
+11:06:40 [ultranest] [DEBUG] iteration=2360, ncalls=25975, regioncalls=0, ndraw=40, logz=-11.46, remainder_fraction=52.7404%, Lmin=-6.04, Lmax=-4.69
+11:06:40 [ultranest] [DEBUG] iteration=2400, ncalls=25975, regioncalls=0, ndraw=40, logz=-11.40, remainder_fraction=49.7454%, Lmin=-5.94, Lmax=-4.69
+11:06:40 [ultranest] [DEBUG] iteration=2440, ncalls=25975, regioncalls=0, ndraw=40, logz=-11.34, remainder_fraction=46.8563%, Lmin=-5.88, Lmax=-4.69
+11:06:40 [ultranest] [DEBUG] iteration=2480, ncalls=25975, regioncalls=0, ndraw=40, logz=-11.29, remainder_fraction=44.0704%, Lmin=-5.80, Lmax=-4.69
+11:06:40 [ultranest] [DEBUG] iteration=2520, ncalls=25975, regioncalls=0, ndraw=40, logz=-11.25, remainder_fraction=41.1916%, Lmin=-5.73, Lmax=-4.69
+11:06:40 [ultranest] [DEBUG] iteration=2560, ncalls=25975, regioncalls=0, ndraw=40, logz=-11.20, remainder_fraction=38.5835%, Lmin=-5.66, Lmax=-4.69
+11:06:40 [ultranest] [DEBUG] iteration=2600, ncalls=25975, regioncalls=0, ndraw=40, logz=-11.16, remainder_fraction=35.9556%, Lmin=-5.59, Lmax=-4.66
+11:06:40 [ultranest] [DEBUG] iteration=2640, ncalls=25975, regioncalls=0, ndraw=40, logz=-11.12, remainder_fraction=33.5183%, Lmin=-5.54, Lmax=-4.66
+11:06:40 [ultranest] [DEBUG] iteration=2680, ncalls=25975, regioncalls=0, ndraw=40, logz=-11.09, remainder_fraction=31.3675%, Lmin=-5.49, Lmax=-4.57
+11:06:40 [ultranest] [DEBUG] iteration=2700, ncalls=25975, regioncalls=0, ndraw=40, logz=-11.07, remainder_fraction=30.2987%, Lmin=-5.46, Lmax=-4.57
+11:06:40 [ultranest] [DEBUG] iteration=2720, ncalls=25975, regioncalls=0, ndraw=40, logz=-11.06, remainder_fraction=29.2362%, Lmin=-5.44, Lmax=-4.54
+11:06:40 [ultranest] [DEBUG] iteration=2760, ncalls=25975, regioncalls=0, ndraw=40, logz=-11.03, remainder_fraction=27.1919%, Lmin=-5.40, Lmax=-4.54
+11:06:40 [ultranest] [DEBUG] iteration=2790, ncalls=25975, regioncalls=0, ndraw=40, logz=-11.01, remainder_fraction=25.7096%, Lmin=-5.37, Lmax=-4.54
+11:06:40 [ultranest] [DEBUG] iteration=2800, ncalls=25975, regioncalls=0, ndraw=40, logz=-11.00, remainder_fraction=25.2516%, Lmin=-5.36, Lmax=-4.54
+11:06:40 [ultranest] [DEBUG] iteration=2840, ncalls=25975, regioncalls=0, ndraw=40, logz=-10.98, remainder_fraction=23.4091%, Lmin=-5.32, Lmax=-4.54
+11:06:40 [ultranest] [DEBUG] iteration=2880, ncalls=25975, regioncalls=0, ndraw=40, logz=-10.95, remainder_fraction=21.6382%, Lmin=-5.27, Lmax=-4.54
+11:06:41 [ultranest] [DEBUG] iteration=2920, ncalls=25975, regioncalls=0, ndraw=40, logz=-10.93, remainder_fraction=20.0074%, Lmin=-5.24, Lmax=-4.54
+11:06:41 [ultranest] [DEBUG] iteration=2960, ncalls=25975, regioncalls=0, ndraw=40, logz=-10.91, remainder_fraction=18.4818%, Lmin=-5.21, Lmax=-4.54
+11:06:41 [ultranest] [DEBUG] iteration=3000, ncalls=25975, regioncalls=0, ndraw=40, logz=-10.90, remainder_fraction=16.9911%, Lmin=-5.18, Lmax=-4.54
+11:06:41 [ultranest] [DEBUG] iteration=3040, ncalls=25975, regioncalls=0, ndraw=40, logz=-10.88, remainder_fraction=15.6509%, Lmin=-5.15, Lmax=-4.54
+11:06:41 [ultranest] [DEBUG] iteration=3080, ncalls=25975, regioncalls=0, ndraw=40, logz=-10.86, remainder_fraction=14.3874%, Lmin=-5.12, Lmax=-4.54
+11:06:41 [ultranest] [DEBUG] iteration=3120, ncalls=25975, regioncalls=0, ndraw=40, logz=-10.85, remainder_fraction=13.2159%, Lmin=-5.10, Lmax=-4.54
+11:06:41 [ultranest] [DEBUG] iteration=3160, ncalls=25975, regioncalls=0, ndraw=40, logz=-10.84, remainder_fraction=12.1658%, Lmin=-5.08, Lmax=-4.54
+11:06:41 [ultranest] [DEBUG] iteration=3200, ncalls=25975, regioncalls=0, ndraw=40, logz=-10.83, remainder_fraction=11.2013%, Lmin=-5.06, Lmax=-4.41
+11:06:41 [ultranest] [DEBUG] iteration=3240, ncalls=25975, regioncalls=0, ndraw=40, logz=-10.82, remainder_fraction=10.3057%, Lmin=-5.03, Lmax=-4.33
+11:06:41 [ultranest] [DEBUG] iteration=3280, ncalls=25975, regioncalls=0, ndraw=40, logz=-10.81, remainder_fraction=9.4847%, Lmin=-5.01, Lmax=-4.32
+11:06:41 [ultranest] [DEBUG] iteration=3320, ncalls=25975, regioncalls=0, ndraw=40, logz=-10.80, remainder_fraction=8.7328%, Lmin=-4.99, Lmax=-4.32
+11:06:41 [ultranest] [DEBUG] iteration=3360, ncalls=25975, regioncalls=0, ndraw=40, logz=-10.79, remainder_fraction=7.9907%, Lmin=-4.97, Lmax=-4.32
+11:06:41 [ultranest] [DEBUG] iteration=3400, ncalls=25975, regioncalls=0, ndraw=40, logz=-10.78, remainder_fraction=7.3221%, Lmin=-4.95, Lmax=-4.32
+11:06:41 [ultranest] [DEBUG] iteration=3440, ncalls=25975, regioncalls=0, ndraw=40, logz=-10.78, remainder_fraction=6.6823%, Lmin=-4.93, Lmax=-4.32
+11:06:41 [ultranest] [DEBUG] iteration=3480, ncalls=25975, regioncalls=0, ndraw=40, logz=-10.77, remainder_fraction=6.1145%, Lmin=-4.91, Lmax=-4.32
+11:06:41 [ultranest] [DEBUG] iteration=3520, ncalls=25975, regioncalls=0, ndraw=40, logz=-10.77, remainder_fraction=5.6004%, Lmin=-4.90, Lmax=-4.24
+11:06:41 [ultranest] [DEBUG] iteration=3560, ncalls=25975, regioncalls=0, ndraw=40, logz=-10.76, remainder_fraction=5.1153%, Lmin=-4.88, Lmax=-4.24
+11:06:41 [ultranest] [DEBUG] iteration=3600, ncalls=25975, regioncalls=0, ndraw=40, logz=-10.76, remainder_fraction=4.6826%, Lmin=-4.87, Lmax=-4.24
+11:06:41 [ultranest] [DEBUG] iteration=3640, ncalls=25975, regioncalls=0, ndraw=40, logz=-10.75, remainder_fraction=4.2779%, Lmin=-4.86, Lmax=-4.24
+11:06:41 [ultranest] [DEBUG] iteration=3680, ncalls=25975, regioncalls=0, ndraw=40, logz=-10.75, remainder_fraction=3.9017%, Lmin=-4.85, Lmax=-4.24
+11:06:41 [ultranest] [DEBUG] iteration=3690, ncalls=25975, regioncalls=0, ndraw=40, logz=-10.75, remainder_fraction=3.8165%, Lmin=-4.84, Lmax=-4.24
+11:06:41 [ultranest] [DEBUG] iteration=3720, ncalls=25975, regioncalls=0, ndraw=40, logz=-10.74, remainder_fraction=3.5604%, Lmin=-4.84, Lmax=-4.24
+11:06:41 [ultranest] [DEBUG] iteration=3760, ncalls=25975, regioncalls=0, ndraw=40, logz=-10.74, remainder_fraction=3.2574%, Lmin=-4.82, Lmax=-4.24
+11:06:41 [ultranest] [DEBUG] iteration=3780, ncalls=25975, regioncalls=0, ndraw=40, logz=-10.74, remainder_fraction=3.1073%, Lmin=-4.82, Lmax=-4.24
+11:06:41 [ultranest] [DEBUG] iteration=3800, ncalls=25975, regioncalls=0, ndraw=40, logz=-10.74, remainder_fraction=2.9706%, Lmin=-4.81, Lmax=-4.24
+11:06:41 [ultranest] [DEBUG] iteration=3840, ncalls=25975, regioncalls=0, ndraw=40, logz=-10.74, remainder_fraction=2.7063%, Lmin=-4.80, Lmax=-4.24
+11:06:41 [ultranest] [DEBUG] iteration=3880, ncalls=25975, regioncalls=0, ndraw=40, logz=-10.73, remainder_fraction=2.4646%, Lmin=-4.79, Lmax=-4.24
+11:06:41 [ultranest] [DEBUG] iteration=3920, ncalls=25975, regioncalls=0, ndraw=40, logz=-10.73, remainder_fraction=2.2444%, Lmin=-4.79, Lmax=-4.24
+11:06:41 [ultranest] [DEBUG] iteration=3960, ncalls=25975, regioncalls=0, ndraw=40, logz=-10.73, remainder_fraction=2.0455%, Lmin=-4.78, Lmax=-4.24
+11:06:41 [ultranest] [DEBUG] iteration=4000, ncalls=25975, regioncalls=0, ndraw=40, logz=-10.73, remainder_fraction=1.8673%, Lmin=-4.77, Lmax=-4.24
+11:06:41 [ultranest] [DEBUG] iteration=4040, ncalls=25975, regioncalls=0, ndraw=40, logz=-10.72, remainder_fraction=1.7045%, Lmin=-4.76, Lmax=-4.24
+11:06:41 [ultranest] [DEBUG] iteration=4050, ncalls=25975, regioncalls=0, ndraw=40, logz=-10.72, remainder_fraction=1.6671%, Lmin=-4.76, Lmax=-4.24
+11:06:42 [ultranest] [DEBUG] iteration=4080, ncalls=25975, regioncalls=0, ndraw=40, logz=-10.72, remainder_fraction=1.5529%, Lmin=-4.75, Lmax=-4.24
+11:06:42 [ultranest] [DEBUG] iteration=4120, ncalls=25975, regioncalls=0, ndraw=40, logz=-10.72, remainder_fraction=1.4134%, Lmin=-4.74, Lmax=-4.24
+11:06:42 [ultranest] [DEBUG] iteration=4140, ncalls=25975, regioncalls=0, ndraw=40, logz=-10.72, remainder_fraction=1.3505%, Lmin=-4.74, Lmax=-4.24
+11:06:42 [ultranest] [DEBUG] iteration=4160, ncalls=25975, regioncalls=0, ndraw=40, logz=-10.72, remainder_fraction=1.2907%, Lmin=-4.74, Lmax=-4.24
+11:06:42 [ultranest] [DEBUG] iteration=4200, ncalls=25975, regioncalls=0, ndraw=40, logz=-10.72, remainder_fraction=1.1762%, Lmin=-4.73, Lmax=-4.24
+11:06:42 [ultranest] [DEBUG] iteration=4240, ncalls=25975, regioncalls=0, ndraw=40, logz=-10.72, remainder_fraction=1.0720%, Lmin=-4.72, Lmax=-4.24
+11:07:47 [ultranest] [DEBUG] iteration=4263, ncalls=25984, regioncalls=480, ndraw=40, logz=-10.72, remainder_fraction=1.0158%, Lmin=-4.72, Lmax=-4.24
+11:08:58 [ultranest] [DEBUG] iteration=4264, ncalls=25994, regioncalls=880, ndraw=40, logz=-10.72, remainder_fraction=1.0133%, Lmin=-4.72, Lmax=-4.24
+11:09:05 [ultranest] [DEBUG] iteration=4265, ncalls=25995, regioncalls=920, ndraw=40, logz=-10.72, remainder_fraction=1.0108%, Lmin=-4.72, Lmax=-4.24
+11:11:41 [ultranest] [DEBUG] iteration=4266, ncalls=26017, regioncalls=1960, ndraw=40, logz=-10.72, remainder_fraction=1.0083%, Lmin=-4.72, Lmax=-4.24
+11:17:07 [ultranest] [DEBUG] iteration=4267, ncalls=26064, regioncalls=4000, ndraw=40, logz=-10.72, remainder_fraction=1.0058%, Lmin=-4.72, Lmax=-4.24
+11:18:39 [ultranest] [DEBUG] iteration=4268, ncalls=26077, regioncalls=4520, ndraw=40, logz=-10.72, remainder_fraction=1.0035%, Lmin=-4.72, Lmax=-4.24
+11:20:31 [ultranest] [DEBUG] iteration=4269, ncalls=26093, regioncalls=5160, ndraw=40, logz=-10.72, remainder_fraction=1.0010%, Lmin=-4.72, Lmax=-4.24
+11:20:31 [ultranest] [INFO] Explored until L=-4  
+11:20:31 [ultranest] [INFO] Likelihood function evaluations: 26093
+11:20:33 [ultranest] [INFO] Writing samples and results to disk ...
+11:20:33 [ultranest] [INFO] Writing samples and results to disk ... done
+11:20:33 [ultranest] [DEBUG] did a run_iter pass!
+11:20:33 [ultranest] [INFO]   logZ = -10.71 +- 0.08433
+11:20:33 [ultranest] [INFO] Effective samples strategy satisfied (ESS = 1926.4, need >400)
+11:20:33 [ultranest] [INFO] Posterior uncertainty strategy is satisfied (KL: 0.46+-0.08 nat, need <0.50 nat)
+11:20:33 [ultranest] [INFO] Evidency uncertainty strategy is satisfied (dlogz=0.08, need <0.5)
+11:20:33 [ultranest] [INFO]   logZ error budget: single: 0.11 bs:0.08 tail:0.01 total:0.08 required:<0.50
+11:20:33 [ultranest] [INFO] done iterating.
+11:29:09 [ultranest] [DEBUG] ReactiveNestedSampler: dims=5+0, resume=True, log_dir=scripts/calibration/fit_updated_intake/1,2,3,4,7,8-HxCDF/run1, backend=hdf5, vectorized=False, nbootstraps=30, ndraw=128..65536
+11:49:42 [ultranest] [DEBUG] ReactiveNestedSampler: dims=5+0, resume=True, log_dir=scripts/calibration/fit_updated_intake/1,2,3,4,7,8-HxCDF/run1, backend=hdf5, vectorized=False, nbootstraps=30, ndraw=128..65536
