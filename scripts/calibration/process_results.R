@@ -1,5 +1,6 @@
 library(ggplot2)
 library(gridExtra)
+
 # Script to load and bundle results from calibration
 congeners <-  c('2,3,7,8-TCDF', '1,2,3,7,8-PeCDF', '2,3,4,7,8-PeCDF', '1,2,3,4,7,8-HxCDF', 
                 '1,2,3,6,7,8-HxCDF', '2,3,4,6,7,8-HxCDF','1,2,3,7,8,9-HxCDF',
@@ -14,19 +15,11 @@ results <- data.frame()
 params <- c("pFat", "pLiver", "pSlow", "kMet", "fAbs")
 
 for (c in congeners) {
-  theRes <- NULL
-  tryCatch({
-    theRes <- read.table(paste0("scripts/calibration/fit_updated_intake/", c, "/run1/chains/equal_weighted_post.txt"))
-  },
-  error = function(e) {
-    print(paste("results for", c, "are not available yet"))
-    })
-  
-  if (is.null(theRes)) theRes <- read.table(paste0("scripts/calibration/fit/", c, "/run1/chains/equal_weighted_post.txt"))
-  
+
+  theRes <- read.table(paste0("scripts/calibration/fit/", c, "/run1/chains/equal_weighted_post.txt"))
   theRes <- lapply(theRes[-1,], as.numeric)
   
-  # Get median of parameters
+  # Get median, 5th and 95th percentiles of parameters
   theRes <- as.data.frame(theRes)
   theRes <- c(apply(theRes, 2, median, na.rm=T),
            apply(theRes, 2, quantile , probs = 0.05 , na.rm = TRUE ),
@@ -42,10 +35,9 @@ for (c in congeners) {
   theRes <- cbind(theRes, congener_id=nrow(results)+1)
   results <- dplyr::bind_rows(results, theRes)
 
-
 }
 
-write.csv(results, 'scripts/calibration/results_updated.csv')
+write.csv(results, 'scripts/calibration/results.csv')
 
 #########################
 ### Visualization #######

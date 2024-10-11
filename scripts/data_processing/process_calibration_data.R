@@ -10,6 +10,10 @@ library(plyr)
 
 # Integration step required
 f.preprocess_calibration <- function() {
+  
+  # Load tefs
+  tef <- read.csv("scripts/validation/tef_values.csv")
+  
   CINT = 1
   
   congeners <- c('2,3,7,8-TCDF', '1,2,3,7,8-PeCDF', '2,3,4,7,8-PeCDF', '1,2,3,4,7,8-HxCDF', 
@@ -17,10 +21,8 @@ f.preprocess_calibration <- function() {
                  '1,2,3,4,6,7,8-HpCDF', '1,2,3,4,7,8,9-HpCDF','OCDF','2,3,7,8-TCDD',
                  '1,2,3,7,8-PeCDD','1,2,3,4,7,8-HxCDD','1,2,3,6,7,8-HxCDD','1,2,3,7,8,9-HxCDD',
                  '1,2,3,4,6,7,8-HpCDD','OCDD','PCB 81', 'PCB 77','PCB 126','PCB 169',
-                 'PCB 138','PCB 123','PCB 118', 'PCB 114','PCB 105','PCB 167',
-                 'PCB 156','PCB 157', 'PCB 189', 'WHO2005-PCDD/F-PCB-TEQ (ub)')
-  
-  
+                 'PCB 123','PCB 118', 'PCB 114','PCB 105','PCB 167','PCB 156',
+                 'PCB 157', 'PCB 189')
   
   # Helper function
   replaceLOQ <- function(x) {
@@ -160,8 +162,9 @@ f.preprocess_calibration <- function() {
   ## ========================= Read intake data ================================= #
 
   
-  # Grass intake from Beuningen (user for both Beuningen and Loevestein)
   intakeData <- as.data.frame(read_xlsx("data/Grasgrondvegetatie.xlsx", sheet='Gras Grond'))
+  
+  # Grass intake from Beuningen (used for both Beuningen and Loevestein)
   BeuningenGrass <- intakeData[intakeData$`Tabel 3A:` %in% congeners,c(1,5:29)] 
   colnames(BeuningenGrass)[1] <- 'congener'
   colnames(BeuningenGrass)[2:26] <- c('Winter', 'Winter', 'Control','Flood', 
@@ -177,55 +180,27 @@ f.preprocess_calibration <- function() {
                                  names_to = 'Period',
                                  values_to = 'conc')
   
-  BeuningenGrass[,"conc"] <- lapply(BeuningenGrass[,"conc"], replaceLOQ)
-  BeuningenSoil[,"conc"] <- lapply(BeuningenSoil[,"conc"], replaceLOQ)
-  LoevesteinSoil[,"conc"] <- lapply(LoevesteinSoil[,"conc"], replaceLOQ)
+  # Soil intake from Beuningen 
+  BeuningenSoil <- intakeData[intakeData$`Tabel 3A:` %in% congeners,c(1,31:34,36:42)] 
+  colnames(BeuningenSoil)[1] <- 'congener'
+  colnames(BeuningenSoil)[2:12] <- rep('Soil',11)
   
-  grassSummary <- ddply(BeuningenGrass, c("congener", "Period"), summarise, mean = mean(as.numeric(conc), na.rm=T))
-  soilSummaryBeuningen <-  ddply(BeuningenSoil, c("congener", "Period"), summarise, mean = mean(as.numeric(conc), na.rm=T))
-  soilSummaryLoevestein <-  ddply(LoevesteinSoil, c("congener", "Period"), summarise, mean = mean(as.numeric(conc), na.rm=T))
+  BeuningenSoil <- pivot_longer(BeuningenSoil, 
+                                 colnames(BeuningenSoil)[2:12],
+                                 names_to = 'Period',
+                                 values_to = 'conc')
   
-  
-  
-  
-  
-  
-  # Loevestein
-  LoevesteinIntake <- as.data.frame(read_xlsx("data/Loevestein2.xlsx", sheet='Gras Grond Loev'))
-  LoevesteinIntake <- LoevesteinIntake[LoevesteinIntake$`Tabel 3A:` %in% congeners,c(1,8:11)] 
-  colnames(LoevesteinIntake)[1] <- 'congener'
-  
-  LoevesteinSoil <- LoevesteinIntake 
-  colnames(LoevesteinSoil)[2:5] <- c('Soil','Soil','Soil','Soil')
+  # Soil intake from Loevestein 
+  LoevesteinSoil <- intakeData[intakeData$`Tabel 3A:` %in% congeners,c(1,44:47)] 
+  colnames(LoevesteinSoil)[1] <- 'congener'
+  colnames(LoevesteinSoil)[2:5] <- rep('Soil',4)
   
   LoevesteinSoil <- pivot_longer(LoevesteinSoil, 
-                                 colnames(LoevesteinSoil)[2:5],
-                                 names_to = 'Period',
-                                 values_to = 'conc')
-
-
-  # Beuningen  
-  BeuningenIntake <- as.data.frame(read_xlsx("data/Beuningen1.xlsx", sheet='Grond en gras'))
-  BeuningenIntake <- BeuningenIntake[BeuningenIntake$`Tabel 3A:` %in% congeners,c(1,5:13,15:21)] 
-  colnames(BeuningenIntake)[1] <- 'congener'
-  
-  BeuningenGrass <- BeuningenIntake[, 1:10]
-  BeuningenSoil <- BeuningenIntake[,c(1,11:17)]
-  colnames(BeuningenGrass)[2:10] <- c('Winter', 'Winter', 'Control','Flood', 
-                                       'Flood', 'Summer', 'Summer', 'Winter', 'Winter')
-  colnames(BeuningenSoil)[2:8] <- c('Soil','Soil','Soil','Control','Soil','Soil','Soil')
-  
-                                       
-  BeuningenGrass <- pivot_longer(BeuningenGrass, 
-                                colnames(BeuningenGrass)[2:10],
+                                colnames(LoevesteinSoil)[2:5],
                                 names_to = 'Period',
                                 values_to = 'conc')
-  BeuningenSoil <- pivot_longer(BeuningenSoil, 
-                                 colnames(BeuningenSoil)[2:8],
-                                 names_to = 'Period',
-                                 values_to = 'conc')
   
-  
+  # Summarise data
   BeuningenGrass[,"conc"] <- lapply(BeuningenGrass[,"conc"], replaceLOQ)
   BeuningenSoil[,"conc"] <- lapply(BeuningenSoil[,"conc"], replaceLOQ)
   LoevesteinSoil[,"conc"] <- lapply(LoevesteinSoil[,"conc"], replaceLOQ)
@@ -234,6 +209,7 @@ f.preprocess_calibration <- function() {
   soilSummaryBeuningen <-  ddply(BeuningenSoil, c("congener", "Period"), summarise, mean = mean(as.numeric(conc), na.rm=T))
   soilSummaryLoevestein <-  ddply(LoevesteinSoil, c("congener", "Period"), summarise, mean = mean(as.numeric(conc), na.rm=T))
   
+  # Process data in data table
   LoevesteinData <- LoevesteinData %>% mutate(cGrassMax = join(data.frame(congener = congener),
                                                                  grassSummary[grassSummary$Period == "Winter", ])$mean/0.88,
                                                 cGrassMin = join(data.frame(congener = congener),
@@ -339,9 +315,69 @@ f.preprocess_calibration <- function() {
   calibrationData[tcols] <- lapply(calibrationData[tcols], round_any, CINT) 
   
   
-  calibrationData[calibrationData$congener == 'WHO2005-PCDD/F-PCB-TEQ (ub)',]$congener <- 'Total-TEQ'
-  
-  
+  #calibrationData[calibrationData$congener == 'WHO2005-PCDD/F-PCB-TEQ (ub)',]$congener <- 'TEQ2005'
+  getTEQ <- function(x,tef,year="2005") {
+    names(tef)[1] <- "congener"
+    if(year=="2005") names(tef)[2]<-"tef"
+    else names(tef)[3]<-"tef"
+    names(x)[2]<-"obs"
+    x <- x %>% merge(tef) %>% mutate(teq = obs*tef)
+    return(sum(x$teq))
+  }
+    
+  # Calculate TEQ2005 and TEQ2022
+  TEQ <- data.frame()
+  for (id in unique(calibrationData$ID)) {
+    dat <- calibrationData[calibrationData$ID==id,]
+    
+    dates <- unique(dat$Date)
+    for (date in 1:length(dates)) {
+
+      TEQ2005 <- data.frame(congener='TEQ2005',
+                            ID=id,
+                            Date=dates[date],
+                            obs_cMeatFat.aSlow=getTEQ(dat[dat$Date==dates[date],c("congener", "obs_cMeatFat.aSlow")], tef, year="2005"),
+                            obs_cLiver.aLiver=getTEQ(dat[dat$Date==dates[date],c("congener", "obs_cLiver.aLiver")], tef, year="2005"),
+                            cGrassMax=getTEQ(dat[dat$Date==dates[date],c("congener", "cGrassMax")], tef, year="2005"),
+                            cGrassMin=getTEQ(dat[dat$Date==dates[date],c("congener", "cGrassMin")], tef, year="2005"),
+                            cGrassClean=getTEQ(dat[dat$Date==dates[date],c("congener", "cGrassClean")], tef, year="2005"),
+                            cSoil=getTEQ(dat[dat$Date==dates[date],c("congener", "cSoil")], tef, year="2005"),
+                            obs_cBloodFat.aBlood=getTEQ(dat[dat$Date==dates[date],c("congener", "obs_cBloodFat.aBlood")], tef, year="2005"),
+                            birthDay=dat$birthDay[date],
+                            TSTOP=dat$TSTOP[date],
+                            tClean=dat$tClean[date],
+                            simClean=dat$simClean[date],
+                            gender=dat$gender[date],
+                            time=dat$time[date],
+                            simFlood=dat$simFlood[date],
+                            tFlood=dat$tFlood[date],
+                            dFlood=dat$dFlood[date])
+      TEQ2022 <- data.frame(congener='TEQ2022',
+                            ID=id,
+                            Date=dates[date],
+                            obs_cMeatFat.aSlow=getTEQ(dat[dat$Date==dates[date],c("congener", "obs_cMeatFat.aSlow")], tef, year="2022"),
+                            obs_cLiver.aLiver=getTEQ(dat[dat$Date==dates[date],c("congener", "obs_cLiver.aLiver")], tef, year="2022"),
+                            cGrassMax=getTEQ(dat[dat$Date==dates[date],c("congener", "cGrassMax")], tef, year="2022"),
+                            cGrassMin=getTEQ(dat[dat$Date==dates[date],c("congener", "cGrassMin")], tef, year="2022"),
+                            cGrassClean=getTEQ(dat[dat$Date==dates[date],c("congener", "cGrassClean")], tef, year="2022"),
+                            cSoil=getTEQ(dat[dat$Date==dates[date],c("congener", "cSoil")], tef, year="2022"),
+                            obs_cBloodFat.aBlood=getTEQ(dat[dat$Date==dates[date],c("congener", "obs_cBloodFat.aBlood")], tef, year="2022"),
+                            birthDay=dat$birthDay[date],
+                            TSTOP=dat$TSTOP[date],
+                            tClean=dat$tClean[date],
+                            simClean=dat$simClean[date],
+                            gender=dat$gender[date],
+                            time=dat$time[date],
+                            simFlood=dat$simFlood[date],
+                            tFlood=dat$tFlood[date],
+                            dFlood=dat$dFlood[date])
+      
+      TEQ <- rbind(TEQ, rbind(TEQ2005,TEQ2022))
+      
+    }
+  } 
+
+  calibrationData <- rbind(calibrationData, TEQ)
   return(calibrationData)
 }
   

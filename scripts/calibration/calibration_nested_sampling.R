@@ -3,53 +3,56 @@
 #' Nested sampling is applied as the calibration method
 
 #' Make sure to run setup.R before running this script
-#' 
 
+# Load packages
 library(magrittr)
 library(dplyr)
+library(reticulate)
+
+# Load python package ultranest
+reticulate::use_condaenv("nested_sampling")
+un <- reticulate::import("ultranest")
+
+# Load model
+source("model/model.R")
+
+# Load calibration data
+source("scripts/data_processing/process_calibration_data.R")
 
 ## ====================================================================== #
 ## =========================== Script =================================== #
 ## ====================================================================== #
 
-# Load python package ultranest
-library(reticulate)
-reticulate::use_condaenv("nested_sampling")
-un <- reticulate::import("ultranest")
-
-# Load model
-source("model/rodeGeusWeb.R")
-
-# Load calibration data
-source("scripts/data_processing/process_calibration_data_v2.R")
-
 # Get default model parameters
 parameters <- assign_parameters()
-#parameters <- calculate_parameters(parameters) 
 
 # Change time scale since simulations would take way too long otherwise
-unit = "months"
+unit = "months" # To speed up computations, chosen time unit was months
 parameters <- utilitiesVVH::param_update(parameters,
                                          unit=unit,
                                          tStartGrassIntake=0) 
 
-if (unit == "weeks") calibrationData$time <- round(calibrationData$time / 7 )
-if (unit == "months") calibrationData$time <- round(calibrationData$time / 28 )
+# Account for observation time unit by dividing by 28 (assuming that month=28 days).
+# Note that other timing parameters (e.g., tFlood, tClean) do not need to be adjusted,
+# since that is already done in model.R
+calibrationData$time <- round(calibrationData$time / 28 )
 
 # Define congeners to optimize
 congeners <- unique(calibrationData$congener)
-congeners <- congeners[c(4)]
+congeners <- congeners[c(1:30)]
 
 # Parameters to optimize
 parm.names <- c("pFat","pLiver","pSlow","kMet", "fAbs")
 lowerBound <- c(10, 1,  1,  1, 0)
 upperBound <- c(1000, 1000, 1000, 1000, 1)
 
+# Loop over congeners (including TEQ2005)
 for (c in congeners) {
   
   tStart <- Sys.time()
+  
   # Likelihood definition
-  Model <- function(parms) { #Likelihood function
+  Model <- function(parms) { 
     LLH <- utilitiesVVH::simulateDataLikelihood(inModelParVals = parms,
                            inParNames = parm.names,
                            parameters,
@@ -60,6 +63,7 @@ for (c in congeners) {
     return(LLH)
   }
   
+  # Transformation definition
   Transform <- function(q) {
     
     # Uniform prior distribution
@@ -71,7 +75,8 @@ for (c in congeners) {
     
   }
   
-  sampler <- un$ReactiveNestedSampler(parm.names, Model, Transform, log_dir=paste0('scripts/calibration/fit_updated_intake/',c, '/run1'), resume=TRUE)
+  # ultranest sampler
+  sampler <- un$ReactiveNestedSampler(parm.names, Model, Transform, log_dir=paste0('scripts/calibration/fit/',c))
   results <- sampler$run(min_num_live_points = as.integer(400))
   sampler$print_results()
   
