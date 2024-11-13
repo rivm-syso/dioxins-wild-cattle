@@ -3713,3 +3713,6 @@
 04:29:01 [ultranest] [INFO] Evidency uncertainty strategy is satisfied (dlogz=0.13, need <0.5)
 04:29:01 [ultranest] [INFO]   logZ error budget: single: 0.18 bs:0.12 tail:0.01 total:0.13 required:<0.50
 04:29:01 [ultranest] [INFO] done iterating.
+10:12:34 [ultranest] [DEBUG] ReactiveNestedSampler: dims=5+0, resume=True, log_dir=scripts/calibration/fit_updated_intake/1,2,3,4,7,8-HxCDF/run1, backend=hdf5, vectorized=False, nbootstraps=30, ndraw=128..65536
+10:28:05 [ultranest] [DEBUG] ReactiveNestedSampler: dims=5+0, resume=True, log_dir=scripts/calibration/fit_updated_intake/1,2,3,4,7,8-HxCDF/run1, backend=hdf5, vectorized=False, nbootstraps=30, ndraw=128..65536
+10:28:23 [ultranest] [DEBUG] ReactiveNestedSampler: dims=5+0, resume=True, log_dir=scripts/calibration/fit_updated_intake/1,2,3,4,7,8-HxCDF/run1, backend=hdf5, vectorized=False, nbootstraps=30, ndraw=128..65536
