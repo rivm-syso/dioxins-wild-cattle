@@ -1,0 +1,28 @@
+# This CITATION.cff file was generated with cffinit.
+# Visit httpsbit.lycffinit to generate yours today!
+
+cff-version 1.2.0
+title dioxins-wild-cattle
+message -
+  If you use this software, please cite it using the
+  metadata from this file.
+type software
+authors
+  - given-names Jordi
+    family-names Minnema
+    email jordi.minnema@rivm.nl
+    affiliation RIVM
+    orcid 'httpsorcid.org0000-0002-1847-4218'
+repository-code 'httpsgithub.comrivm-sysodioxins-wild-cattle'
+abstract -
+  This repository contains code that was used to perform the
+  experiments described in the paper Congener-specific
+  Transfer Modelling of Dioxins and Dioxin-like PCBs in Wild
+  Cattle Grazing on the Dutch Floodplains by Minnema et
+  al., 2025 
+keywords
+  - dioxins
+  - physiologically-based kinetic modelling
+  - wild cattle
+  - floodplains
+license EUPL-1.2
