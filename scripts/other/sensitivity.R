@@ -8,18 +8,17 @@ source('functions/sensitivity_analysis.R')
 kin_data <- read.csv("scripts/calibration/results.csv", header=TRUE)
 kin_data <- kin_data[kin_data$congener=='TEQ2005',]
 
-
-#----------------- Bull model -------------------- #
+#----------------- Bull -------------------- #
 
 params_bull <- assign_parameters()
 params_bull <- param_update(params_bull, 
-                                       gender="bull",
-                                       TSTOP=365*6,
-                                       pFat=kin_data$pLiver_median,
-                                       pLiver=kin_data$pLiver_median,
-                                       pSlow=kin_data$pSlow_median,
-                                       kMet=kin_data$kMet_median,
-                                       fAbs=kin_data$fAbs_median)
+                            gender="bull",
+                            TSTOP=365*6,
+                            pFat=kin_data$pLiver_median,
+                            pLiver=kin_data$pLiver_median,
+                            pSlow=kin_data$pSlow_median,
+                            kMet=kin_data$kMet_median,
+                            fAbs=kin_data$fAbs_median)
 
 include_bull <- names(params_bull)[!names(params_bull) %in% c("gender", "TDOSEOFF", "cSoilRef", "cGrassRef", "birthDay", 
                                  "tWin", "tSum", "CINT", "POINTS", "TSTOP", 
@@ -32,21 +31,21 @@ include_bull <- names(params_bull)[!names(params_bull) %in% c("gender", "TDOSEOF
                                  "rVBloodCow", "rVSlowCow", "rVRichCow", "rVFatCow","rVLiverCow")] #exposure scenario
 
 sens_bull <- sensitivity_analysis(model_path='model/model.R',
-                                             parameters=params_bull,
-                                             include_parameters=include_bull,
-                                             c("cMeatFat.aSlow", "cLiver.aLiver"))
-   
+                                  parameters=params_bull,
+                                  include_parameters=include_bull,
+                                  c("cMeatFat.aSlow", "cLiver.aLiver"))
 
-#----------------- Cow model -------------------- #
+
+#----------------- Cow -------------------- #
 params_cow <- assign_parameters()
 params_cow <- param_update(params_cow, 
-                                      gender="cow",
-                                      TSTOP=365*6,
-                                      pFat=kin_data$pFat_median,
-                                      pLiver =kin_data$pLiver_median ,
-                                      pSlow=kin_data$pSlow_median,
-                                      kMet=kin_data$kMet_median,
-                                      fAbs=kin_data$fAbs_median)
+                           gender="cow",
+                           TSTOP=365*6,
+                           pFat=kin_data$pFat_median,
+                           pLiver =kin_data$pLiver_median ,
+                           pSlow=kin_data$pSlow_median,
+                           kMet=kin_data$kMet_median,
+                           fAbs=kin_data$fAbs_median)
 include_cow <- names(params_cow)[!names(params_cow) %in% c("gender", "TDOSEOFF", "cSoilRef", "cGrassRef", "birthDay", 
                                                               "tWin", "tSum", "CINT", "POINTS", "TSTOP", 
                                                               "simClean", "simFlood", 
@@ -55,27 +54,15 @@ include_cow <- names(params_cow)[!names(params_cow) %in% c("gender", "TDOSEOFF",
                                                               "simFlood", "unit", "tStartGrassIntake", "cMilk", "iMilk", "iSoilFractionWinter", 
                                                               "iSoilFractionSummer", "kGrass", "relFatVariation", "bwRef", "tYear",
                                                               "rVBloodBull", "rVSlowBull", "rVRichBull", "rVFatBull","rVLiverBull")] #exposure scenario
-sens_cow <- utilitiesVVH::sensitivity_analysis(model_path='model/model.R',
-                                            parameters=params_cow,
-                                            include_parameters=include_cow,
-                                            c("cMeatFat.aSlow", "cLiver.aLiver"))
+sens_cow <- sensitivity_analysis(model_path='model/model.R',
+                                               parameters=params_cow,
+                                               include_parameters=include_cow,
+                                               c("cMeatFat.aSlow", "cLiver.aLiver"))
 
 
 #----------------- Plot -------------------- #
-# for (comp in c("cMeatFat.aSlow", "cLiver.aLiver")) {
-#   
-#   par(mar=c(15,  5,5 ,5))
-#   
-#   if (comp=="cMeatFat.aSlow") comp_name <- "meat fat concentration"
-#   if (comp=="cLiver.aLiver") comp_name <- "liver concentration"
-#   
-#   barplot(sens_bull[comp,], ylim=c(-1,1), main=paste0("Bull - sensitivity analysis of ", comp_name, sep=" "), las=2)
-#   barplot(sens_cow[comp,], ylim=c(-1,1), main=paste0("Cow - Sensitivity analysis of ", comp_name, sep=" "), las=2)
-# }
-
 library(ggplot2)
 library(gridExtra)
-
 
 sens_cow <- as.data.frame(sens_cow)
 sens_bull <- as.data.frame(sens_bull)
