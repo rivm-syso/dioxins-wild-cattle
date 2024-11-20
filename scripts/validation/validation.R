@@ -16,7 +16,7 @@ source("model/model.R")
 source("scripts/data_processing/process_validation_data.R")
 
 # Load congener-specific kinetic data
-kin_data <- read.csv("scripts/calibration/results_updated.csv", header=TRUE)
+kin_data <- read.csv("scripts/calibration/results.csv", header=TRUE)
 tef <- read.csv("scripts/validation/tef_values.csv")
 
 tef_id <- "2005" # Either select 2005, or 2022. TEFs have been revised in 2022
@@ -211,7 +211,7 @@ for (ii in 1:length(congeners)) {
   } 
   
   plt <- plt + 1
-  ggsave(filename=paste0("scripts/verification/figures/meatfat/meatfat_",congeners[ii] ,".png"),
+  ggsave(filename=paste0("scripts/validation/figures/meatfat/meatfat_",congeners[ii] ,".png"),
          plot=pltMeatFat[[plt]],
          width=3000,
          height=2000,
@@ -220,7 +220,7 @@ for (ii in 1:length(congeners)) {
   
 }
 
-ggsave(filename=paste0("scripts/verification/figures/meatfat/meatfat_sumTEQ.png"),
+ggsave(filename=paste0("scripts/validation/figures/meatfat/meatfat_sumTEQ.png"),
        plot=pltMeatFat[[plt+1]],
        width=3000,
        height=2000,
