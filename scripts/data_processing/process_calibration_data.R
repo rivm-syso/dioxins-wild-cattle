@@ -2,11 +2,10 @@
 #' animal tissues, grass and soil. This data is used for the congener-specific 
 #' calibration of the RodeGeus transfer model. 
 
-library(readxl)
 library(magrittr)
 library(tidyr)
-library(dplyr)
 library(plyr)
+library(dplyr)
 
 # Integration step required
 f.preprocess_calibration <- function() {
@@ -38,7 +37,7 @@ f.preprocess_calibration <- function() {
   
                  
   # Read first files for Loevestein with blood and tissue data
-  Loevestein1 <- as.data.frame(read_xlsx("data/Loevestein2.xlsx", sheet='bloed en vet'))
+  Loevestein1 <- as.data.frame(readxl::read_xlsx("data/Loevestein2.xlsx", sheet='bloed en vet'))
   Loevestein1 <- Loevestein1[Loevestein1$...1 %in% congeners,] 
   
   # Process first 'batch' of data, for the first blood samples
@@ -105,7 +104,7 @@ f.preprocess_calibration <- function() {
   
   
   # Loevestein tissue samples (IDs 7,8,9)
-  Loevestein1Tissues <- as.data.frame(read_xlsx("data/Loevestein2.xlsx", sheet='Loevestein stieren'))
+  Loevestein1Tissues <- as.data.frame(readxl::read_xlsx("data/Loevestein2.xlsx", sheet='Loevestein stieren'))
   Loevestein1Tissues <- Loevestein1Tissues[Loevestein1Tissues$`Tabel 3A:` %in% congeners,] 
   
   Loevestein1Tissuestmp <- Loevestein1Tissues[c(1,8,9,12)]
@@ -133,7 +132,7 @@ f.preprocess_calibration <- function() {
   
   ## =============== Beuningen ================================= ##
   
-  BeuningenTissues1 <- as.data.frame(read_xlsx("data/Beuningen1.xlsx", sheet='Lever en vet'))
+  BeuningenTissues1 <- as.data.frame(readxl::read_xlsx("data/Beuningen1.xlsx", sheet='Lever en vet'))
   BeuningenTissues1 <- BeuningenTissues1[1:80,] # Remove double values in excel
   BeuningenTissues1 <- BeuningenTissues1[BeuningenTissues1$`Tabel 3A:` %in% congeners,] 
   
@@ -162,7 +161,7 @@ f.preprocess_calibration <- function() {
   ## ========================= Read intake data ================================= #
 
   
-  intakeData <- as.data.frame(read_xlsx("data/Grasgrondvegetatie.xlsx", sheet='Gras Grond'))
+  intakeData <- as.data.frame(readxl::read_xlsx("data/Grasgrondvegetatie.xlsx", sheet='Gras Grond'))
   
   # Grass intake from Beuningen (used for both Beuningen and Loevestein)
   BeuningenGrass <- intakeData[intakeData$`Tabel 3A:` %in% congeners,c(1,5:29)] 
