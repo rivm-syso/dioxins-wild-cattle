@@ -74,24 +74,6 @@ f.preprocess_verification <- function() {
   colnames(LoevesteinSoil)[1] <- 'congener'
   colnames(LoevesteinSoil)[2:5] <- rep('Soil',4)
   
- 
-  # 
-  # 
-  # # Read intake data (assume Loevestein intake is the same as Beuningen)
-  # BeuningenIntake <- as.data.frame(read_xlsx("data/Beuningen1.xlsx", sheet='Grond en gras'))
-  # LoevesteinSoil <- as.data.frame(read_xlsx("data/Loevestein1.xlsx", sheet='Gras Grond Loev'))
-  # BeuningenIntake <- BeuningenIntake[BeuningenIntake$`Tabel 3A:` %in% congeners,c(1,5:13,15:21)] 
-  # LoevesteinSoil <- LoevesteinSoil[LoevesteinSoil$`Tabel 3A:` %in% congeners,c(1,8:11)] 
-  # colnames(BeuningenIntake)[1] <- 'congener'
-  # colnames(LoevesteinSoil)[1] <- 'congener'
-  # 
-  # BeuningenGrass <- BeuningenIntake[, 1:10]
-  # BeuningenSoil <- BeuningenIntake[,c(1,11:17)]
-  # colnames(BeuningenGrass)[2:10] <- c('Winter', 'Winter', 'Control','Flood', 
-  #                                      'Flood', 'Summer', 'Summer', 'Winter', 'Winter')
-  # colnames(BeuningenSoil)[2:8] <- c('Soil','Soil','Soil','Control','Soil','Soil','Soil')
-  # colnames(LoevesteinSoil)[2:5] <- c('Soil','Soil','Soil','Soil')
-  #                                      
   BeuningenGrass <- pivot_longer(BeuningenGrass, 
                                  colnames(BeuningenGrass)[2:26],
                                  names_to = 'Period',

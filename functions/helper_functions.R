@@ -1,5 +1,24 @@
 #' Helper functions 
 
+
+
+formatParamList <- function (inParameterNames, inParameterValues){
+  #' Parameter formatting
+  #' 
+  #' @description function to create a named parameter list
+  #' @param inParameterNames the parameter names 
+  #' @param inParameterValues numerical values of the model parameters 
+  #' @return formatted parameter list
+  #' @export
+  #' 
+  parlist <- list();
+  for (i in 1:length(inParameterValues)) {
+    parlist[inParameterNames[i]] <- inParameterValues[i];
+  }
+  return (parlist);
+}
+
+
 param_update <- function(parameters, ...) {
   #' Update parameter value
   #' @description Every parameter value that is in parameters is updated. A warning is 

@@ -1,6 +1,7 @@
-#' This script is intended to calibrate the VVH model for cattle in the floodplains
-#' Data is used from cattle slaughtered that had been grazing at Loevestein and Beuningen
-#' Nested sampling is applied as the calibration method
+#' This script is intended to calibrate the PBK transfer model for dioxins
+#' and dl0-PCBs from grass and soil to cattle grazing in the floodplains
+#' Data is used from cattle slaughtered that had been grazing at Loevestein and 
+#' Beuningen (the Netherlands). Nested sampling is applied as the calibration method
 
 #' Make sure to run setup.R before running this script
 
@@ -19,6 +20,10 @@ source("model/model.R")
 # Load calibration data
 source("scripts/data_processing/process_calibration_data.R")
 
+# Load helper functions
+source("functions/helper_functions.R")
+source("functions/likelihood.R")
+
 ## ====================================================================== #
 ## =========================== Script =================================== #
 ## ====================================================================== #
@@ -28,9 +33,9 @@ parameters <- assign_parameters()
 
 # Change time scale since simulations would take way too long otherwise
 unit = "months" # To speed up computations, chosen time unit was months
-parameters <- utilitiesVVH::param_update(parameters,
-                                         unit=unit,
-                                         tStartGrassIntake=0) 
+parameters <- param_update(parameters,
+                           unit=unit,
+                           tStartGrassIntake=0) 
 
 # Account for observation time unit by dividing by 28 (assuming that month=28 days).
 # Note that other timing parameters (e.g., tFlood, tClean) do not need to be adjusted,
@@ -53,13 +58,13 @@ for (c in congeners) {
   
   # Likelihood definition
   Model <- function(parms) { 
-    LLH <- utilitiesVVH::simulateDataLikelihood(inModelParVals = parms,
-                           inParNames = parm.names,
-                           parameters,
-                           run_model,
-                           calibrationData[calibrationData$congener == c,],
-                           inLinearScaleLLH = FALSE,
-                           inCompartments = NULL)
+    LLH <- simulateDataLikelihood(inModelParVals = parms,
+                                  inParNames = parm.names,
+                                  parameters,
+                                  run_model,
+                                  calibrationData[calibrationData$congener == c,],
+                                  inLinearScaleLLH = FALSE,
+                                  inCompartments = NULL)
     return(LLH)
   }
   
