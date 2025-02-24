@@ -1,4 +1,4 @@
-
+source('functions/helper_functions.R')
 
 #' Likelihood simulation
 #' 
@@ -22,7 +22,7 @@
 #             There should be better ways to do this, no doubt. NEEDS IMPROVEMENT
 #' @return simulated data likelihood
 #' @export
-simulateDataLikelihood <- function (inModelParVals, inParNames, modelParams, modelRunFunc, inObservations, inDataErrors = NULL, inPerCompartment=FALSE, inLinearScaleLLH=TRUE, inCompartments = NULL, kLLHScale=100) {
+simulateDataLikelihood <- function (inModelParVals, inParNames, modelParams, modelRunFunc, inObservations, kLLHScale=100) {
   
   # Check correct format of inObservations
   if (!("ID" %in% colnames(inObservations))) stop("ID is not a column in inObservations")
@@ -59,13 +59,8 @@ simulateDataLikelihood <- function (inModelParVals, inParNames, modelParams, mod
   
   # read simulation result into a data frame and determine the compartments to be included in the the loglikehood calculation, first removing the non-obervational columns from the data 
   theObservationCompartments <- colnames(inObservations[!colnames(inObservations)%in%c('ID', 'time', 'evid', 'amt', 'rate', 'cmt', 'BW')]);
-  if (is.null(inCompartments)) {
-    # include all simulated compartments. These are the columns left after removing ID and time columns
-    theSimulationCompartments  <- colnames(theSimulation[!colnames(theSimulation)%in%c('ID', 'time')]);
-  } else {
-    theSimulationCompartments <- inCompartments;
-  }
-  
+  theSimulationCompartments  <- colnames(theSimulation[!colnames(theSimulation)%in%c('ID', 'time')]);
+
   theLLH <- 0;
   
   for (compartment in theSimulationCompartments) {
@@ -76,71 +71,46 @@ simulateDataLikelihood <- function (inModelParVals, inParNames, modelParams, mod
       observations <- inObservations[,observationComp];
       compSimulation <- theSimulation[,compartment];
       
-      # get the observational errors for the compartment, to pass to the likelihood calculation
-      # note that this works also if the errors == NULL
-      theErrors <- inDataErrors[,observationComp];
-      
-      if (inLinearScaleLLH) {
-        # remove non-observations from the simulation and observation data
-        compSimulation <- compSimulation[!is.na(observations)];
-        observations   <- observations[!is.na(observations)];
-        theLLH <- theLLH + logLikeliHoodLinearScale(observations, compSimulation, inDataErrors = theErrors);
-      } else {
-        # remove the non-observations (note that a value of 1 will make terms drop out of the likelihood sum)
-        compSimulation <- compSimulation[!is.na(observations)];
-        observations   <- observations[!is.na(observations)];
-        # remove the <= zeros
-        compSimulation[!(observations>0)]     <- 1;
-        observations[!(observations>0)]     <- 1;
-        compSimulation[!(compSimulation>0)] <- 1;
-        theLLH <- theLLH + logLikeliHoodLogScale (observations, compSimulation, inDataErrors = theErrors);  
+      # remove the non-observations (note that a value of 1 will make terms drop out of the likelihood sum)
+      compSimulation <- compSimulation[!is.na(observations)];
+      observations   <- observations[!is.na(observations)];
+      # remove the <= zeros
+      compSimulation[!(observations>0)]     <- 1;
+      observations[!(observations>0)]     <- 1;
+      compSimulation[!(compSimulation>0)] <- 1;
+      theLLH <- theLLH + logLikeliHoodLogScale (observations, compSimulation);  
         
         if (theLLH < 0) {
           print("STOP")
         }
       }
     }
-  }
-  
+
   theDataLikelihood <- theLLH/length(theObservationCompartments);
   theDataLikelihood <- kLLHScale * theDataLikelihood;
   return (-theDataLikelihood);
 }
 
-# helper routines called by simulateDataLikelihood()
-logLikeliHoodLinearScale <- function (inCompObservations, inCompSimulation, inDataErrors = NULL, inScaled = TRUE) {
+logLikeliHoodLogScale <- function (inCompObservations, inCompSimulation) {
   # observations are expected to be on the same time points as the simulated data
-  # compartments in the observation are assumed to be named 'obs_CMT' where 'CMT' is the
-  # compartment name. Then, matching observation and simulated points are identified and the normalized
-  # setting the list inCompartments allows one to limit the number of compartments, accounting only for selected compartments
-  # if inCompartments == NULL all the observational compartments will be included in calculating the likeliHood
-  # likelihood is calculated as the exponent of -(sum of squares of difference between model and data) is calculated and scaled to the observational datum in absence of error information
-  # data errors are assumed to be the sd in the observational data
-  theScale <- 1;
-  if (!is.null(inDataErrors)) {
-    theScale <- inDataErrors;
-    
-  } else if (inScaled) {
-    theScale <- inCompObservations;
-    # replace 0's with 1
-    theScale[!(theScale>0)] <- 1;
-  }
-  return (sum(((inCompSimulation - inCompObservations)/theScale)^2)/length(inCompSimulation));
-  
-}
-
-logLikeliHoodLogScale <- function (inCompObservations, inCompSimulation, inDataErrors = NULL) {
-  # observations are expected to be on the same time points as the simulated data
-  # compartments in the observation are assumed to be named 'obs_CMT' where 'CMT' is the
-  # compartment name. Then, matching observation and simulated points are identified and the normalized 
-  # setting the list inCompartments allows one to limit the number of compartments, accounting only for selected compartments
-  # if inCompartments == NULL all the observational compartments will be included in calculating the likeliHood
   # likelihood is calculated as the exponent of -(sum of squares of difference between model and data) is calculated 
   # if data errors are passed for heteroscadacitic scaling, these are assumed to represent the sd in the log of the data
-  theScale <- 1;
-  if (!is.null(inDataErrors)) {
-    theScale <- inDataErrors;
+
+  N <- length(inCompObservations)
+  
+  # If simulation < LOQ, exclude from analysis
+  for (i in 1:length(inCompObservations)) {
+    if (grepl("<",inCompObservations[i])) {
+      inCompObservations[i] <- as.numeric(gsub("<", "",inCompObservations[i])) / 2  
+      if (inCompSimulation[i] < as.numeric(inCompObservations[i])*2) {
+        inCompSimulation <- inCompSimulation[-i]
+        inCompObservations <- inCompObservations[-i]
+        
+      }
+    }
   }
   
-  return(sum(((log(inCompSimulation) - log(inCompObservations))/theScale)^2)/length(inCompObservations));
+  inCompObservations <- as.numeric(inCompObservations)
+  
+  return(sum(((log(inCompSimulation) - log(inCompObservations)))^2)/N);
 }

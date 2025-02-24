@@ -40,15 +40,15 @@ for (id in 1:length(ids)) {
   parameters <- assign_parameters()
   
   # update individual characteristics
-  parameters <- utilitiesVVH::param_update(parameters, 
-                                        unit = unit,
-                                        gender = unique(data$gender),
-                                        TSTOP=unique(data$TSTOP)+10, 
-                                        birthDay=unique(data$birthDay),
-                                        simFlood=unique(data$simFlood),
-                                        tFlood = unique(data$tFlood),
-                                        dFlood = unique(data$dFlood),
-                                        tClean = unique(data$tClean)+10)
+  parameters <- param_update(parameters, 
+                             unit = unit,
+                             gender = unique(data$gender),
+                             TSTOP=unique(data$TSTOP)+10, 
+                             birthDay=unique(data$birthDay),
+                             simFlood=unique(data$simFlood),
+                             tFlood = unique(data$tFlood),
+                             dFlood = unique(data$dFlood),
+                             tClean = unique(data$tClean)+10)
   
   for (c in 1:length(congeners)) {
    
@@ -163,7 +163,6 @@ for (id in ids) {
   theSimulation <- theSimulation %>% filter(ID != id | ID==id & time>oneYearAfterBirth)
 }
 
-
 for (ccc in 1:length(congeners)) {
   # Do check for kinetic parameters
   if (!(congeners[ccc] %in% kin_data$congener)){
@@ -184,10 +183,32 @@ for (ccc in 1:length(congeners)) {
     scale_color_discrete("Animal ID") + 
     scale_x_date(date_labels = "%Y") +
     ggtitle(paste(congeners[ccc], " in muscle fat"))
+  
+  ratio <- c()
+  for (id in ids) {
+    sim_performance <- sim[sim$ID == id,]
+    obs_date <- obs[obs$ID==id,]$Date
+    sim_performance <- sim_performance[sim_performance$time == obs_date,]$concMeatFat
+    obs_performance <- obs[obs$ID==id,]$obs_cMeatFat.aSlow
+    print(sim_performance)
+    ratio <- c(ratio, sim_performance/obs_performance)
+  }
+  
+  
+  print(paste0( "Congener: ", congeners[ccc], " - error: ", mean(ratio)))
 }
 
 sim <- theSimulation[theSimulation$Compound == 'Sum TEQ',]
 obs <- verificationData[verificationData$congener == 'TEQ2005',]
+
+
+sim_performance <- sim[sim$time %in% obs$Date,]$concMeatFat
+obs_performance <- obs$obs_cMeatFat.aSlow
+
+print(paste0( "Congener: ", congeners[ccc], " - error: ", sim_performance/obs_performance))
+
+
+
 
 pltMeatFat[[i+1]] <- ggplot() +
   xlab("Time (years)") +
@@ -230,7 +251,6 @@ ggsave(filename=paste0("scripts/validation/figures/meatfat/meatfat_sumTEQ.png"),
 
 #@@@@@@@@@@@@@@@@@@@@
 # Create Figures
-
 
 sim_sumTEQ_beuningen <- theSimulation[theSimulation$Compound == 'Sum TEQ',] %>% filter(ID %in% c(15,16,17,18,19,20,21))
 sim_beuningen <- theSimulation %>% filter(ID %in% c(15,16,17,18,19,20,21))
@@ -314,5 +334,69 @@ ggsave(filename=paste0("figures/Fig6.jpg"),
        height=2000,
        units="px",
        dpi=300) 
+
+# Metrics
+simTEQ1 <- simulation[simulation$Compound == "TEQ2005",]
+simTEQ2 <- theSimulation[theSimulation$Compound == 'Sum TEQ',]
+obs <- verificationData[verificationData$congener == 'TEQ2005',]
+
+err_1 <- c()
+err_2 <- c()
+
+# Loop over congeners
+for (cong in 1:length(congeners)) {
+  
+  sim <- simulation[simulation$Compound == congeners[cong],]
+  obs <- verificationData[verificationData$congener == congeners[cong],]
+  
+  sim_val_i <- c()
+  obs_val_i <- c()
+  # Loop over animal
+  for (i in obs$ID) {
+    
+    date <- obs[obs$ID==i,]$Date
+    obs_val <- obs[obs$ID==i,]$obs_cMeatFat.aSlow
+    
+    sim_i <- sim[sim$ID==i,]
+    sim_i <- sim_i[sim_i$time==date,]$concMeatFat
+    
+    obs_i <- obs[obs$ID==i,]
+    obs_i <- obs_i[obs_i$Date==date,]$obs_cMeatFat.aSlow
+    
+    sim_val_i <- c(sim_val_i, sim_i)
+    obs_val_i <- c(obs_val_i, obs_i)
+  }
+  
+  
+  print(paste("Congener ", congeners[cong], " : ", sum(sim_val_i/obs_val_i)/length(obs$ID)))
+  
+}
+
+for (i in obs$ID) {
+  
+  date <- obs[obs$ID==i,]$Date
+  obs_val <- obs[obs$ID==i,]$obs_cMeatFat.aSlow
+  
+  simteq1 <- simTEQ1[simTEQ1$ID==i,]
+  sim_val1 <- simteq1[simteq1$time==date,]$concMeatFat
+  
+  simteq2 <- simTEQ2[simTEQ2$ID==i,]
+  sim_val2 <- simteq2[simteq2$time==date,]$concMeatFat
+  
+  print("*****")
+  print(paste("ID", i, "- total-teq: ", sim_val1))
+  print(paste("ID", i, "- sum-teq: ", sim_val2))
+  
+  print(paste("ID", i, "- total-teq: ", sim_val1/obs_val))
+  print(paste("ID", i, "- sum-teq: ", sim_val2/obs_val))
+  
+  err_1 <- c(err_1, sim_val1/obs_val)
+  err_2 <- c(err_2, sim_val2/obs_val)
+  
+}
+
+10^((sum(err_1)/length(err_1)))
+10^((sum(err_2)/length(err_2)))
+
 
 
