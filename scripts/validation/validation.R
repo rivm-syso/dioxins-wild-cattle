@@ -11,6 +11,7 @@ library(gridExtra)
 
 # Load model
 source("model/model.R")
+source("functions/helper_functions.R")
 
 # load verification data
 source("scripts/data_processing/process_validation_data.R")
@@ -62,19 +63,19 @@ for (id in 1:length(ids)) {
     data_kin_congener <- kin_data[kin_data$congener == congeners[c],]
    
     # Update congener specific exposure characteristics
-    parameters <- utilitiesVVH::param_update(parameters, 
-                                          cGrassMax=unique(data_congener$cGrassMax), 
-                                          cGrassMin=unique(data_congener$cGrassMin),
-                                          cMilk = 0, 
-                                          cSoil=unique(data_congener$cSoil))
+    parameters <- param_update(parameters, 
+                               cGrassMax=unique(data_congener$cGrassMax), 
+                               cGrassMin=unique(data_congener$cGrassMin),
+                               cMilk = 0, 
+                               cSoil=unique(data_congener$cSoil))
     
     # Update congener specific kinetic characteristics
-    parameters <- utilitiesVVH::param_update(parameters, 
-                                          pFat=data_kin_congener$pFat_median,
-                                          pLiver =data_kin_congener$pLiver_median ,
-                                          pSlow=data_kin_congener$pSlow_median,
-                                          kMet=data_kin_congener$kMet_median,
-                                          fAbs=data_kin_congener$fAbs_median)
+    parameters <- param_update(parameters, 
+                               pFat=data_kin_congener$pFat_median,
+                               pLiver =data_kin_congener$pLiver_median ,
+                               pSlow=data_kin_congener$pSlow_median,
+                               kMet=data_kin_congener$kMet_median,
+                               fAbs=data_kin_congener$fAbs_median)
     
     
     
