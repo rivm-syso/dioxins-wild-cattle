@@ -101,11 +101,14 @@ close(pb)
 simulation_df <- data.frame(dates = as.Date(solution$date))
 simulation_df$TEQ2005 <- solution$cMeatFat.aSlow
 
+
+
 # Get median, 5th and 95th percentiles for each date
-sim <- simulation_df %>% group_by(dates) %>%
+sim <- simulation_df %>% filter(dates > (as.Date(data$birthDay) + 366)) %>% 
+  group_by(dates) %>%
   summarise(Median=median(TEQ2005),
             P5=sort(TEQ2005)[round(n_sample*0.05)],
-            P95=sort(TEQ2005)[round(n_sample*0.95)])
+            P95=sort(TEQ2005)[round(n_sample*0.95)]) 
 
 # Plot
 plt_validation <- sim %>% ggplot() +
@@ -113,10 +116,12 @@ plt_validation <- sim %>% ggplot() +
   geom_ribbon(aes(x=dates,ymin=P5,ymax=P95), fill="black", alpha=0.1) +
   geom_point(aes(x=as.Date("2023-11-07"), y=3.52)) +
   scale_x_date(date_breaks = "6 month",
-               date_labels = "%b %Y") +
-  ggtitle("TEQ in muscle fat: 2,3,7,8-TCDD") + 
+               date_labels = "%b %Y",
+               limits = c(as.Date("2020-01-01"), as.Date("2023-12-31"))) +
+  ggtitle("2,3,7,8-TCDD concentration in muscle fat") + 
   xlab("Date") +
   ylab("Concentration (pg/g fat)") 
+
 
 ggsave(filename=paste0("figures/FigS3.jpg"),
        plot=plt_validation,
