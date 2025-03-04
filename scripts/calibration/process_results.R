@@ -76,7 +76,7 @@ for (param in params) {
   
 }
 plt_save <- gridExtra::grid.arrange(plt[[1]],plt[[2]],plt[[3]],plt[[4]],plt[[5]], ncol=2, nrow=3)
-ggsave("figures/Fig4.jpg",
+ggsave("figures/Fig5.jpg",
        plt_save,
        width=35,
        height=35,

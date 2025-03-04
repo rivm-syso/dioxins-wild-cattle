@@ -175,9 +175,8 @@ f.preprocess_verification <- function() {
                                                                                                                           soilSummaryBeuningen[soilSummaryBeuningen$Period == "Soil", ])$mean/0.88))
                                                   
 
-  
-  # For every entry below LOQ, divide by 2.                                  
   cols <- c("obs_cMeatFat.aSlow", "cGrassMax", "cGrassMin", "cSoil")
+  tmpData <- verificationData[,c("obs_cMeatFat.aSlow")]
   verificationData[cols] <- lapply(verificationData[,cols], replaceLOQ)
   verificationData[cols] <- lapply(verificationData[,cols], as.numeric)
   
@@ -239,7 +238,7 @@ f.preprocess_verification <- function() {
       
     }
   } 
-  
+  verificationData[,c("obs_cMeatFat.aSlow")] <- tmpData
   verificationData <- rbind(verificationData, TEQ)
   return(verificationData)
 }

@@ -1,5 +1,5 @@
 #' This script is intended to calibrate the PBK transfer model for dioxins
-#' and dl0-PCBs from grass and soil to cattle grazing in the floodplains
+#' and dl-PCBs from grass and soil to cattle grazing in the floodplains
 #' Data is used from cattle slaughtered that had been grazing at Loevestein and 
 #' Beuningen (the Netherlands). Nested sampling is applied as the calibration method
 
@@ -44,7 +44,12 @@ calibrationData$time <- round(calibrationData$time / 28 )
 
 # Define congeners to optimize
 congeners <- unique(calibrationData$congener)
-congeners <- congeners[c(1:30)]
+congeners <- c("TEQ2005", "2,3,7,8-TCDF","1,2,3,7,8-PeCDF","2,3,4,7,8-PeCDF","2,3,4,6,7,8-HxCDF",
+  "1,2,3,7,8,9-HxCDF","1,2,3,4,6,7,8-HpCDF","1,2,3,4,7,8,9-HpCDF",
+  "OCDF","2,3,7,8-TCDD","1,2,3,7,8-PeCDD","1,2,3,4,7,8-HxCDD",
+  "1,2,3,6,7,8-HxCDD","1,2,3,7,8,9-HxCDD","1,2,3,4,6,7,8-HpCDD","PCB 123")
+congeners <- congeners[c(15,16)]
+
 
 # Parameters to optimize
 parm.names <- c("pFat","pLiver","pSlow","kMet", "fAbs")
@@ -62,9 +67,8 @@ for (c in congeners) {
                                   inParNames = parm.names,
                                   parameters,
                                   run_model,
-                                  calibrationData[calibrationData$congener == c,],
-                                  inLinearScaleLLH = FALSE,
-                                  inCompartments = NULL)
+                                  calibrationData[calibrationData$congener == c,]
+                                  )
     return(LLH)
   }
   
@@ -77,11 +81,10 @@ for (c in congeners) {
       parm[i] <- q[i]*(upperBound[i]-lowerBound[i]) + lowerBound[i]
     }
     return(parm)
-    
   }
   
   # ultranest sampler
-  sampler <- un$ReactiveNestedSampler(parm.names, Model, Transform, log_dir=paste0('scripts/calibration/fit/',c))
+  sampler <- un$ReactiveNestedSampler(parm.names, Model, Transform, log_dir=paste0('scripts/calibration/parameter_fit_updated/',c,'/run1'), resume=TRUE)
   results <- sampler$run(min_num_live_points = as.integer(400))
   sampler$print_results()
   
