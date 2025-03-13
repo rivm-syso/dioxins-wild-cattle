@@ -1,6 +1,6 @@
 # dioxins-wild-cattle
 
-This repository contains code that was used to perform the experiments described in the paper "Congener-specific Transfer Modelling of Dioxins and Dioxin-like PCBs in Wild Cattle Grazing on the Dutch Floodplains" by [Minnema et al.](add link) 
+This repository contains code that was used to perform the experiments described in the paper "Congener-specific Transfer Modelling of Dioxins and Dioxin-like PCBs in Wild Cattle Grazing on the Dutch Floodplains" by [Minnema et al. 2025](https://doi.org/10.1080/19440049.2025.2478076)
 
 ## Getting started
 
@@ -44,7 +44,7 @@ calibration and validation.
 
 ## Maintanance
 The code and data hosted in this repository are solely intended to allow the reproduction
-of the results presented in [Minnema et al.](add link). This repository will not be maintained.
+of the results presented in [Minnema et al.](https://doi.org/10.1080/19440049.2025.2478076). This repository will not be maintained.
 
 ## License
 EUPL 1.2
