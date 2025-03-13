@@ -6,6 +6,7 @@ library(magrittr)
 library(tidyr)
 library(plyr)
 library(dplyr)
+source('functions/helper_functions.R')
 
 # Integration step required
 f.preprocess_calibration <- function() {
@@ -23,15 +24,7 @@ f.preprocess_calibration <- function() {
                  'PCB 123','PCB 118', 'PCB 114','PCB 105','PCB 167','PCB 156',
                  'PCB 157', 'PCB 189')
   
-  # Helper function
-  replaceLOQ <- function(x) {
-    for (i in 1:length(x)) {
-      if (grepl("<",x[i])) {
-        x[i] <- as.numeric(gsub("<", "", x[i])) / 2
-      }
-    }
-    return(x)
-  }
+
   
   ## =============== Loevestein ================================= ##
   
@@ -293,10 +286,12 @@ f.preprocess_calibration <- function() {
                                                   as.integer() %>%
                                                   abs(),
                                                 dFlood = 28)
-
   
-  # Set every entry below LOQ equal to zero
+  # Set every entry below LOQ equal to LOQ/2
   cols <- c("obs_cLiver.aLiver", "obs_cBloodFat.aBlood", "obs_cMeatFat.aSlow", "cGrassMax", "cGrassMin")
+ 
+  tmpData <- calibrationData[,c("obs_cLiver.aLiver", "obs_cBloodFat.aBlood", "obs_cMeatFat.aSlow")]
+  
   calibrationData[cols] <- lapply(calibrationData[,cols], replaceLOQ)
   calibrationData[cols] <- lapply(calibrationData[,cols], as.numeric)
   
@@ -308,13 +303,10 @@ f.preprocess_calibration <- function() {
     calibrationData[calibrationData$congener==c,]$cGrassMax <- cmean
   }
   
-  
   # Round given time points for CINT
   tcols <- c("TSTOP", "tClean", "time", "tFlood")
   calibrationData[tcols] <- lapply(calibrationData[tcols], round_any, CINT) 
   
-  
-  #calibrationData[calibrationData$congener == 'WHO2005-PCDD/F-PCB-TEQ (ub)',]$congener <- 'TEQ2005'
   getTEQ <- function(x,tef,year="2005") {
     names(tef)[1] <- "congener"
     if(year=="2005") names(tef)[2]<-"tef"
@@ -376,7 +368,10 @@ f.preprocess_calibration <- function() {
     }
   } 
 
+  calibrationData[,c("obs_cLiver.aLiver", "obs_cBloodFat.aBlood", "obs_cMeatFat.aSlow")] <- tmpData
   calibrationData <- rbind(calibrationData, TEQ)
+  
+  
   return(calibrationData)
 }
   

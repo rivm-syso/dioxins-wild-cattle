@@ -1,7 +1,5 @@
 #' Helper functions 
 
-
-
 formatParamList <- function (inParameterNames, inParameterValues){
   #' Parameter formatting
   #' 
@@ -41,4 +39,15 @@ param_update <- function(parameters, ...) {
   if (length(l) > 0) warning(paste(names(l), ": not been updated because the parameter(s) do(es) not exist in the model"))
   
   return(parameters)
+}
+
+
+# Helper function
+replaceLOQ <- function(x) {
+  for (i in 1:length(x)) {
+    if (grepl("<",x[i])) {
+      x[i] <- as.numeric(gsub("<", "", x[i])) / 2
+    }
+  }
+  return(x)
 }
