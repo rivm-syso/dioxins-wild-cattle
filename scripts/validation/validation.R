@@ -288,6 +288,7 @@ pltsumTEQ_beuningen <- ggplot() +
              aes(x=as.Date(Date), y=obs_cMeatFat.aSlow, color=factor(ID)),size=2) +
   geom_line(data=sim_sumTEQ_beuningen,
             aes(x=time, y=concMeatFat, color=factor(ID)), linetype=2) +
+  geom_vline(aes(xintercept=as.Date("2021-02-01"))) +
   scale_color_discrete("Animal ID") + 
   scale_x_date(date_breaks = "6 month",
                date_labels = "%b %Y",
@@ -302,6 +303,7 @@ plttotalTEQ_beuningen <- ggplot() +
              aes(x=as.Date(Date), y=obs_cMeatFat.aSlow, color=factor(ID)),size=2) +
   geom_line(data=sim_totalTEQ_beuningen,
             aes(x=time, y=concMeatFat, color=factor(ID)), linetype=2) +
+  geom_vline(aes(xintercept=as.Date("2021-02-01"))) +
   scale_color_discrete("Animal ID") + 
   scale_x_date(date_breaks = "6 month",
                date_labels = "%b %Y",
@@ -336,6 +338,7 @@ plttotalTEQ_loevestein <- ggplot() +
              aes(x=as.Date(Date), y=obs_cMeatFat.aSlow, color=factor(ID)),size=2) +
   geom_line(data=sim_totalTEQ_loevestein,
             aes(x=time, y=concMeatFat, color=factor(ID)), linetype=2) +
+  geom_vline(aes(xintercept=as.Date("2021-02-01"))) +
   scale_color_discrete("Animal ID") + 
   scale_x_date(date_breaks = "6 month",
                date_labels = "%b %Y",
